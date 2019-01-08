@@ -1,0 +1,37 @@
+version: 2.1
+
+description: |
+  Generate screenshots via happo.io and compare with a previous version.
+
+commands:
+  run_happo:
+    description: |
+      Run the happo-ci-circleci command
+    steps:
+      - run:
+          name: Run Happo
+          command: npx --package happo.io happo-ci-circleci
+
+  install_dependencies:
+    description: |
+      Install package dependencies via yarn or npm (auto-detects)
+    steps:
+      - run:
+          name: Install dependencies
+          command: |
+            if [ -f 'yarn.lock' ]; then
+              yarn install --pure-lockfile
+            else
+              npm install --no-save
+            fi
+jobs:
+  run:
+    description: |
+      Run Happo in the current repository
+    docker:
+      - image: circleci/node:10
+    steps:
+      - checkout
+      - install_dependencies
+      - run_happo
+
