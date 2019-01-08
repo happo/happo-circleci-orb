@@ -1,12 +1,14 @@
 version: 2.1
 
 description: |
-  Generate screenshots via happo.io and compare with a previous version.
+  Run screenshot tests via happo.io in your project. API tokens are read from
+  $HAPPO_API_KEY and $HAPPO_API_SECRET, or directly from `apiKey` and `apiToken`
+  if you have them listed in your `.happo.js` config.
 
 commands:
   run_happo:
     description: |
-      Run the happo-ci-circleci command
+      Run Happo in the current directory.
     steps:
       - run:
           name: Run Happo
@@ -14,7 +16,7 @@ commands:
 
   install_dependencies:
     description: |
-      Install package dependencies via yarn or npm (auto-detects)
+      Install package dependencies via yarn or npm (auto-detects).
     steps:
       - run:
           name: Install dependencies
@@ -27,7 +29,7 @@ commands:
 jobs:
   run:
     description: |
-      Run Happo in the current repository
+      Check out code, install dependencies, then run Happo.
     docker:
       - image: circleci/node:10
     steps:
@@ -35,3 +37,32 @@ jobs:
       - install_dependencies
       - run_happo
 
+examples:
+  run_happo_command:
+    description: |
+      Use the provided `happo/run_happo` command in a custom job.
+    usage:
+      version: 2.1
+      orbs:
+        happo: happo/happo@latest
+      jobs:
+        happo:
+          docker:
+            - image: <a node docker image>
+          steps:
+            - checkout
+            - npm install
+            - happo/run_happo
+
+  use_happo_job:
+    description: |
+      Use the provided `happo/run` job directly.
+    usage:
+      version: 2.1
+      orbs:
+        happo: happo/happo@latest
+      workflows:
+        version: 2.1
+        run_all:
+          jobs:
+            - happo/run
