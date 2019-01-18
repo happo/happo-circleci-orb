@@ -3,7 +3,8 @@ version: 2.1
 description: |
   Run screenshot tests via happo.io in your project. API tokens are read from
   $HAPPO_API_KEY and $HAPPO_API_SECRET, or directly from `apiKey` and `apiToken`
-  if you have them listed in your `.happo.js` config.
+  if you have them listed in your `.happo.js` config. The source for this Orb is
+  available at https://github.com/happo/happo-circleci-orb.
 
 commands:
   run_happo:
