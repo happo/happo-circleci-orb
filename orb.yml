@@ -13,7 +13,12 @@ commands:
     steps:
       - run:
           name: Run Happo
-          command: npx --package happo.io happo-ci-circleci
+          command: |
+            if [ -f 'yarn.lock' ]; then
+              yarn happo-ci-circleci
+            else
+              npm run happo-ci-circleci
+            fi
 
   install_dependencies:
     description: |
