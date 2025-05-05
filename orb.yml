@@ -39,7 +39,7 @@ jobs:
     description: |
       Check out code, install dependencies, then run Happo.
     docker:
-      - image: circleci/node:10
+      - image: cimg/node:lts
     steps:
       - checkout
       - install_dependencies
