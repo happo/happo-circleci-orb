@@ -15,7 +15,7 @@ commands:
     steps:
       - run:
           name: Run Happo
-          command: npx happo-ci-circleci
+          command: npx --package=happo.io happo-ci-circleci
 
   install_dependencies:
     description: |
